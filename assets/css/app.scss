@@ -5,6 +5,12 @@
 
 @tailwind utilities;
 
+.image-upload {
+  ::-webkit-file-upload-button {
+    display: none;
+  }
+}
+
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {

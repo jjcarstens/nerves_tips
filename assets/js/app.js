@@ -20,7 +20,7 @@ import Alpine from "alpinejs"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
-  params: {_csrf_token: csrfToken},
+  params: {_csrf_token: csrfToken, timezone_offset: - (new Date().getTimezoneOffset() / 60)},
   dom: {
     onBeforeElUpdated(from, to){
       if(from.__x){ Alpine.clone(from.__x, to) }

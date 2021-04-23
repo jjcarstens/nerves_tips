@@ -9,11 +9,11 @@
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
-  <body>
+  <body class="bg-gray-100 dark:bg-gray-900">
     <div class="bg-gray-100 dark:bg-gray-900 items-center justify-center">
-      <header>
+      <header class="sticky top-0 z-50">
         <div class="flex-1 flex flex-col">
-          <nav class="px-2 flex justify-between h-20">
+          <nav class="bg-gray-100 dark:bg-gray-900 px-2 flex justify-between h-20">
 
             <!-- top bar left -->
             <ul class="flex items-center">
@@ -36,6 +36,13 @@
                 </a>
               </li>
             </ul>
+
+            <ul class="flex items-center">
+              <li>
+                <h1 class="dark:text-white">#NervesTips</h1>
+              </li>
+            </ul>
+
 
             <!-- to bar right  -->
             <ul class="flex items-center">
