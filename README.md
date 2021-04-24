@@ -1,20 +1,26 @@
 # NervesTips
 
-To start your Phoenix server:
+https://tips.nerves-project.org
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+# Setup
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+`NervesTips` has a public page for displaying published tips and an admin
+page for managing a queue of to-be-released tips. The admin page is
+behind Github OAuth application authentication and requires users be
+explicitly added in order to accept the authentication:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+```elixir
+iex> user = NervesTips.Schema.User.changeset(%NervesTips.Schema.User{}, %{nickname: "jjcarstens"})
+iex> NervesTips.Repo.insert(user)
+{:ok, _user}
+```
 
-## Learn more
+Then add these for Github OAuth to work:
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```elixir
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: "my_client_id",
+  client_secret: "my_client_secret"
+```
+
+The Github OAuth application callback should be set to `/auth/github/callback`
