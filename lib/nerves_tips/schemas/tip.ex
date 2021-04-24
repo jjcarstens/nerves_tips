@@ -24,11 +24,17 @@ defmodule NervesTips.Schema.Tip do
     timestamps(type: :utc_datetime)
   end
 
+  def build_body(%__MODULE__{} = tip) do
+    build_body(tip.number, tip.title, tip.description)
+  end
+
   def build_body(number, title, description) do
     """
     #{@title_start}#{number} - #{title}
 
     #{description}
+
+    #NervesTips #MyElixirStatus
     """
   end
 
