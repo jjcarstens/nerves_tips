@@ -4,7 +4,7 @@ defmodule NervesTipsWeb.AdminLive do
   alias NervesTips.{Repo, Schema.Tip}
 
   @impl true
-  def mount(params, %{"user_id" => user_id}, socket) do
+  def mount(_params, %{"user_id" => user_id}, socket) do
     offset = get_connect_params(socket)["timezone_offset"] || 0
 
     socket =
