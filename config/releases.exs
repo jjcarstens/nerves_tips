@@ -6,7 +6,7 @@ config :nerves_tips, NervesTipsWeb.Endpoint,
     port: {:system, "PORT"}, # Needed for Phoenix 1.2 and 1.4. Doesn't hurt for 1.3.
     transport_options: [socket_opts: [:inet6]]
   ],
-  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 443],
+  url: [host: "tips.nerves-project.org", port: 443],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   live_view: [signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT")]
 
