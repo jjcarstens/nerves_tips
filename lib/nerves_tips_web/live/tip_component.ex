@@ -46,12 +46,7 @@ defmodule NervesTipsWeb.TipComponent do
           </button>
         </div>
       <% end %>
-      <p class="text-black dark:text-white block text-xl leading-snug mt-3">
-        Nerves Tip #<%= @tip.number %> - <%= @tip.title %>
-        </br>
-        </br>
-        <%= @tip.description %>
-      </p>
+      <%= tip_body(@tip) %>
       <%= if @tip.image do %>
       <img class="mt-2 rounded-2xl border border-gray-100 dark:border-gray-700" src="data:<%= @tip.image_type %>;base64,<%= Base.encode64(@tip.image) %>"/>
       <% end %>
@@ -64,5 +59,12 @@ defmodule NervesTipsWeb.TipComponent do
     (tip.published_on || tip.updated_at || DateTime.utc_now())
     |> DateTime.add(offset * 60 * 60)
     |> Calendar.strftime("%-I:%M %p · %b %-d, %Y")
+  end
+
+  defp tip_body(tip) do
+    NervesTips.Schema.Tip.build_body(tip)
+    |> text_to_html(
+      attributes: [class: "text-black dark:text-white block text-xl leading-snug mt-3"]
+    )
   end
 end
