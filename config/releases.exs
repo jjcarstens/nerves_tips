@@ -3,7 +3,8 @@ import Config
 config :nerves_tips, NervesTipsWeb.Endpoint,
   server: true,
   http: [
-    port: {:system, "PORT"}, # Needed for Phoenix 1.2 and 1.4. Doesn't hurt for 1.3.
+    # Needed for Phoenix 1.2 and 1.4. Doesn't hurt for 1.3.
+    port: {:system, "PORT"},
     transport_options: [socket_opts: [:inet6]]
   ],
   url: [host: "tips.nerves-project.org", port: 443],

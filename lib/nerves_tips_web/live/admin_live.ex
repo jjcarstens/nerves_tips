@@ -59,6 +59,11 @@ defmodule NervesTipsWeb.AdminLive do
     {:noreply, assign(socket, preview: true)}
   end
 
+  def handle_event("preview-close", _params, socket) do
+    # This is the preview of an unsaved tip
+    {:noreply, assign(socket, preview: false)}
+  end
+
   def handle_event("delete", %{"id" => ""}, socket) do
     # This is the preview of an unsaved tip
     {:noreply, assign(socket, preview: false)}
