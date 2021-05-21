@@ -50,7 +50,7 @@ defmodule NervesTips.Schema.Tip do
       :title,
       :twitter_link
     ])
-    |> maybe_add_number()
+    |> maybe_add_number(attrs)
     |> validate_required([:description, :title])
     |> validate_character_limit()
     |> unique_constraint(:number)
@@ -63,7 +63,14 @@ defmodule NervesTips.Schema.Tip do
     |> validate_format(:twitter_link, ~r/^https:\/\/twitter.com/)
   end
 
-  defp maybe_add_number(changeset) do
+  defp maybe_add_number(changeset, %{number: nil}) do
+    # We've explicitly set number to nil
+    # Specifically for swapping numbers and don't want the
+    # next value to be filled in
+    changeset
+  end
+
+  defp maybe_add_number(changeset, _attrs) do
     if get_field(changeset, :number) do
       changeset
     else

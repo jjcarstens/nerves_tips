@@ -27,8 +27,22 @@ defmodule NervesTips do
     |> Repo.one()
   end
 
-  def update_user(user, attrs) do
-    User.changeset(user, attrs)
+  def update(%mod{} = record, attrs) do
+    mod.changeset(record, attrs)
     |> Repo.update()
+  end
+
+  def swap_tip_numbers!(a, b) do
+    # To prevent hitting the unique index on tip number, we need
+    # to reset numbers to an available value then do the swap
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:next, Tip.changeset(a, %{number: nil}))
+    |> Ecto.Multi.update(:new_b, Tip.changeset(b, %{number: a.number}))
+    |> Ecto.Multi.update(:new_a, Tip.changeset(a, %{number: b.number}))
+    |> Repo.transaction()
+    |> case do
+      {:ok, result} -> [result.new_a, result.new_b]
+      err -> raise("Failed to swap tip numbers - #{inspect(err)}")
+    end
   end
 end

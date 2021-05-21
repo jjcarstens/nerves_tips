@@ -45,7 +45,7 @@ defmodule NervesTipsWeb.AdminLive do
     |> Repo.insert()
     |> case do
       {:ok, tip} ->
-        sorted = Enum.sort_by([tip | socket.assigns.queue], & &1.number)
+        sorted = sort_by_number([tip | socket.assigns.queue])
 
         {:noreply,
          assign(socket, queue: sorted, changeset: new_changeset(socket.assigns.user.id))}
@@ -84,6 +84,16 @@ defmodule NervesTipsWeb.AdminLive do
     {:noreply, socket}
   end
 
+  def handle_event(<<"m", direction::binary-1, id_str::binary>>, _params, socket) do
+    id = String.to_integer(id_str)
+
+    queue =
+      move_in_queue(direction, id, socket.assigns.queue, [])
+      |> sort_by_number()
+
+    {:noreply, assign(socket, queue: queue)}
+  end
+
   defp handle_progress(:image, entry, socket) do
     socket =
       if entry.done? do
@@ -110,8 +120,35 @@ defmodule NervesTipsWeb.AdminLive do
     update_changeset(socket, attrs)
   end
 
+  defp move_in_queue(_dir, _target, [], acc), do: acc
+
+  defp move_in_queue("d", target, [%{id: target} = a, b | rest], acc)
+       when b.number - a.number == 1 do
+    NervesTips.swap_tip_numbers!(a, b) ++ rest ++ acc
+  end
+
+  defp move_in_queue("u", target, [a, %{id: target} = b | rest], acc)
+       when b.number - a.number == 1 do
+    NervesTips.swap_tip_numbers!(a, b) ++ rest ++ acc
+  end
+
+  defp move_in_queue(direction, target, [%{id: target} = t | rest], acc) do
+    # If we get here, the next tip number doesn't exist, so just update the record
+    adjuster = if direction == "d", do: 1, else: -1
+    {:ok, updated} = NervesTips.update(t, %{number: t.number + adjuster})
+    [updated | rest ++ acc]
+  end
+
+  defp move_in_queue(direction, target, [next | rest], acc) do
+    move_in_queue(direction, target, rest, [next | acc])
+  end
+
   defp new_changeset(user_id) do
     Tip.changeset(%Tip{}, %{created_by_id: user_id})
+  end
+
+  defp sort_by_number(queue) do
+    Enum.sort_by(queue, & &1.number)
   end
 
   defp update_changeset(socket, attrs) do

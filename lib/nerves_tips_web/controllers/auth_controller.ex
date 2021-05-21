@@ -21,7 +21,7 @@ defmodule NervesTipsWeb.AuthController do
            name: user_info.name,
            avatar_url: user_info.urls.avatar_url
          },
-         {:ok, user} <- NervesTips.update_user(user, attrs),
+         {:ok, user} <- NervesTips.update(user, attrs),
          origin = params["origin"] || "/" do
       conn
       |> configure_session(renew: true)

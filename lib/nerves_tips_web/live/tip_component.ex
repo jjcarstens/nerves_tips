@@ -22,14 +22,14 @@ defmodule NervesTipsWeb.TipComponent do
             </div>
           </div>
           <div class="flex">
-            <button phx-click="move-up" phx-value-id="<%= @tip.id %>" type="button" class="bg-gray-100 dark:bg-gray-700 rounded-md rounded-r-none p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <button phx-click="mu<%= @tip.id %>" type="button" class="bg-gray-100 dark:bg-gray-700 rounded-md rounded-r-none p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span class="sr-only">up</span>
               <!-- Heroicon name: chevron-up -->
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
               </svg>
             </button>
-            <button phx-click="move-down" phx-value-id="<%= @tip.id %>" type="button" class="bg-gray-100 dark:bg-gray-700 rounded-l-none rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <button phx-click="md<%= @tip.id %>" type="button" class="bg-gray-100 dark:bg-gray-700 rounded-l-none rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span class="sr-only">down</span>
               <!-- Heroicon name: chevron-down -->
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
