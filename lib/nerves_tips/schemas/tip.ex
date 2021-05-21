@@ -51,7 +51,7 @@ defmodule NervesTips.Schema.Tip do
       :twitter_link
     ])
     |> maybe_add_number(attrs)
-    |> validate_required([:description, :title])
+    |> validate_required([:description, :title, :created_by_id])
     |> validate_character_limit()
     |> unique_constraint(:number)
   end

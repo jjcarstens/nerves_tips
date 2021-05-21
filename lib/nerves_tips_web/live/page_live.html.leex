@@ -1,5 +1,5 @@
 <div class="space-y-10">
   <%= for tip <- @tips do %>
-    <%= live_component @socket, NervesTipsWeb.TipComponent, tip: tip, timezone_offset: @timezone_offset %>
+    <%= live_component @socket, NervesTipsWeb.TipComponent, id: tip.id, tip: tip, timezone_offset: @timezone_offset %>
   <% end %>
 </div>
