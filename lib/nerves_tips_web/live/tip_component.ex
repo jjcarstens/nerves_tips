@@ -15,10 +15,10 @@ defmodule NervesTipsWeb.TipComponent do
       <%= if @user do%>
         <div class="flex justify-between">
           <div class="flex items-center">
-            <img class="h-11 w-11 rounded-full" src="<%= @user.avatar_url %>"/>
+            <img class="h-11 w-11 rounded-full" src="<%= @tip.created_by.avatar_url %>"/>
             <div class="ml-1.5 text-sm leading-tight">
               <span class="text-black dark:text-white font-bold block ">Created By ¬</span>
-              <span class="text-gray-500 dark:text-gray-400 font-normal block">@<%= @user.nickname %></span>
+              <span class="text-gray-500 dark:text-gray-400 font-normal block">@<%= @tip.created_by.nickname %></span>
             </div>
           </div>
           <div class="flex">

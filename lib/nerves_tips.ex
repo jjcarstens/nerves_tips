@@ -17,7 +17,8 @@ defmodule NervesTips do
   def queued_tips() do
     from(t in Tip,
       where: is_nil(t.published_on) or is_nil(t.twitter_link),
-      order_by: [asc: :number]
+      order_by: [asc: :number],
+      preload: :created_by
     )
     |> Repo.all()
   end

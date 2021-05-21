@@ -45,7 +45,7 @@ defmodule NervesTipsWeb.AdminLive do
     |> Repo.insert()
     |> case do
       {:ok, tip} ->
-        sorted = sort_by_number([tip | socket.assigns.queue])
+        sorted = sort_by_number([Repo.preload(tip, :created_by) | socket.assigns.queue])
 
         {:noreply,
          assign(socket, queue: sorted, changeset: new_changeset(socket.assigns.user.id))}
