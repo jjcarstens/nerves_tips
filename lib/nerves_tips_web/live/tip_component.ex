@@ -228,8 +228,6 @@ defmodule NervesTipsWeb.TipComponent do
           &add_image_to_changeset(socket, &1.path, entry.client_type)
         )
       else
-        # TODO: Remove this after done testing
-        :timer.sleep(Enum.random(100..500))
         socket
       end
 
