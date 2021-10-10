@@ -13,7 +13,7 @@ defmodule NervesTipsWeb.TipComponent do
       socket
       |> assign_new(:user, fn -> nil end)
       |> allow_upload(:image,
-        accept: [".png"],
+        accept: [".png", ".gif"],
         auto_upload: true,
         max_entries: 1,
         progress: &handle_progress/3
