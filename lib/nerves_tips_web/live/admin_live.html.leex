@@ -1,7 +1,0 @@
-<div class="space-y-10">
-    <%= live_component @socket, NervesTipsWeb.TipComponent, id: :new_tip, changeset: new_changeset(@user.id), tip: %Tip{}, user: @user, timezone_offset: @timezone_offset %>
-
-  <%= for tip <- @queue do %>
-    <%= live_component @socket, NervesTipsWeb.TipComponent, id: tip.id, tip: tip, user: @user, timezone_offset: @timezone_offset %>
-  <% end %>
-</div>
