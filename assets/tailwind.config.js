@@ -1,9 +1,7 @@
 module.exports = {
-  purge: [
-    '../lib/**/*.ex',
-    '../lib/**/*.leex',
-    '../lib/**/*.eex',
-    './js/**/*.js'
+  content: [
+    './js/**/*.js',
+    '../lib/*_web/**/*.*ex'
   ],
   darkMode: 'class',
   theme: {
