@@ -20,14 +20,12 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
-  maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
-
   config :nerves_tips, NervesTips.Repo,
     adapter: Ecto.Adapters.Postgres,
     # ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+    socket_options: [:inet6]
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -41,11 +39,12 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "tips.nerves-project.org"
-  port = String.to_integer(System.get_env("PORT") || "4000")
+  # app_name =
+  #   System.get_env("FLY_APP_NAME") ||
+  #     raise "FLY_APP_NAME not available"
 
   config :nerves_tips, NervesTipsWeb.Endpoint,
-    url: [host: host, port: 443],
+    url: [host: "tips.nerves-project.org", port: 80],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
@@ -53,7 +52,7 @@ if config_env() == :prod do
       # for details about using IPv6 vs IPv4 and loopback vs public addresses.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       # transport_options: [socket_opts: [:inet6]],
-      port: port
+      port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base,
     live_view: [signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT")]

@@ -1,0 +1,1 @@
+call "%~dp0\nerves_tips" eval NervesTips.Release.migrate
