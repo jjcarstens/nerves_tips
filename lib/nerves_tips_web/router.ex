@@ -22,6 +22,7 @@ defmodule NervesTipsWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/tip/:tip", PageLive, :show
     get "/login", AuthController, :login
     get "/logout", AuthController, :logout
   end
